@@ -1,0 +1,26 @@
+
+NAME
+	Queue::Base - Simple OO style queue implementation.
+
+DESCRIPTION
+	The Queue::Base is a simple implementation for queue structures using an
+	OO interface. Provides basic functionality: nothing less - nothing more.
+
+REASON
+	I started writing this module becasuse I didn't find a similar queue 
+	implementation on CPAN.
+	I know that in perl is very simple to simulate a queue, but I wanted 
+	something with kind of a standard interface, which is simple and very 
+	intuitive to use.
+	
+	My goal in writting the module was the clarity of the interface and not
+	the performance of the implementation. I assume that if you consider the
+	performance critical, you not use this module; alternatively you could manipulate 
+	arrays directly, or perphaps you could use another programmming language.
+
+COPYRIGHT
+	Copyright (c) 2003 Farkas Arpad. <arpadf@spidernet.co.ro>
+	
+	All rights reserved.
+	This program is free software; you can redistribute it and/or modify it
+	under the same terms as Perl itself.
