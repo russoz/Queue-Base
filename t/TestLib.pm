@@ -4,7 +4,7 @@ package TestLib;
 use Exporter;
 @ISA = qw(Exporter);
 @EXPORT = qw(
-	match_structure
+	compare_structure
 );
 
 
@@ -14,7 +14,7 @@ use Exporter;
 # Returns: Whether the structures are identical (boolean)
 #       True (1) - when they are identical, False (0) - otherwise
 
-sub match_structure
+sub compare_structure
 {
 	my ($config1, $config2) = @_;
 
@@ -30,7 +30,7 @@ sub match_structure
 			my $val1 = $config1->[$k];
 			my $val2 = $config2->[$k];
 
-			if (! match_structure($val1, $val2)) {
+			if (! compare_structure($val1, $val2)) {
 				return 0;
 			}
 		}
@@ -48,7 +48,7 @@ sub match_structure
 			$val1 = $config1->{$key};
 			$val2 = $config2->{$key};
 
-			if (! match_structure($val1, $val2)) {
+			if (! compare_structure($val1, $val2)) {
 				return 0;
 			}
 		}

@@ -1,4 +1,8 @@
 
+2003-05-26 (v1.1) - Farkas Arpad
+	* Interface: now clear() does what before empty() did. empty() is used to
+		test whether the queue is empty, its size is zero.
+
 2003-05-22 (v1.02) - Farkas Arpad
 	* Documentation: a small inconsistency.
 

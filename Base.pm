@@ -1,7 +1,7 @@
 
 package Queue::Base;
 
-$VERSION = "1.02";
+$VERSION = "1.1";
 
 
 ################################################################################
@@ -23,7 +23,7 @@ sub new
 		@{$obj->{'list'}} = @{$rElements};
 	}
 	else {
-		@{$obj->{'list'}} = ();
+		$obj->{'list'} = [];
 	}
 	
 	return $obj;
@@ -84,6 +84,14 @@ sub empty
 {
 	my $obj = shift();
 	
+	return ($obj->size() == 0);
+}
+
+
+sub clear
+{
+	my $obj = shift();
+	
 	$obj->{'list'} = [];
 }
 
@@ -106,11 +114,11 @@ Queue::Base - Simple OO style queue implementation.
  # or
  my $queue = new Queue::Base(\@elements);
  
- # add new element to the queue
+ # add a new element to the queue
  $queue->add($element);
  
- # remove an element from the queue
- if ($queue->size()) {
+ # remove the next element from the queue
+ if (! $queue->empty()) {
      my $element = $queue->remove();
  }
  # or
@@ -153,18 +161,22 @@ Adds the LIST OF ELEMENTS to the end of the queue.
 
 =item remove [NUMBER_OF_ELEMENTS]
 
-In scalar context it return the first element from the queue.
+In scalar context it returns the first element from the queue.
 
-In scalar context it attempts to return the NUMBER_OF_ELEMENTS requested;
+In array context it attempts to return NUMBER_OF_ELEMENTS requested;
 when NUMBER_OF_ELEMENTS is not given, it defaults to 1.
 
 =item size
 
 Returns the size of the queue.
 
-=item emtpy
+=item empty
 
-Empties the queue.
+Returns whether the queue is empty, which means its size is 0.
+
+=item clear
+
+Removes all elements from the queue.
 
 =back
 
@@ -172,7 +184,7 @@ Empties the queue.
 
 The module works only with scalar values. If you want to use more complex 
 structures (and there's a big change you want that) please use references, 
-which in perl5 are implemented as scalars.
+which in perl5 are basically scalars.
 
 =head1 AUTHOR
 

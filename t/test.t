@@ -1,14 +1,13 @@
 #!/usr/bin/perl -w
 
 use strict;
-
 use Test;
 BEGIN { plan tests => 5};
 
+use File::Basename;
 use Queue::Base;
 @Queue::ISA = qw(Queue::Base);
 
-use File::Basename;
 use lib dirname(readlink($0)||$0);
 use TestLib;
 
@@ -42,12 +41,11 @@ TEST1: # simple add/remove (queue size)
 	$queue->remove();
 	$queue->remove();
 	
-	if ($queue->size() != 0) {
+	if (! $queue->empty()) {
 		ok(0);	
+		last TEST1;
 	}
-	else {
-		ok(1);
-	}
+	ok(1);
 }
 
 
@@ -64,7 +62,7 @@ TEST2: # simple add/remove (content)
 	$element = $queue->remove(); push(@readElements, $element);
 	$element = $queue->remove(); push(@readElements, $element);
 	
-	if (! match_structure(\@testElements, \@readElements)) {
+	if (! compare_structure(\@testElements, \@readElements)) {
 		ok(0);
 		last TEST2;
 	}
@@ -74,13 +72,11 @@ TEST2: # simple add/remove (content)
 		push (@readElements, $element);
 	}
 
-	if (! match_structure(\@testElements, \@readElements)) {
+	if (! compare_structure(\@testElements, \@readElements)) {
 		ok(0);
 		last TEST2;
 	}
-	else {
-		ok(1);
-	}
+	ok(1);
 }
 
 
@@ -94,7 +90,7 @@ TEST3: # add/remove multiple elements
 	push (@readElements, $queue->remove(2));
 	push (@readElements, $queue->remove());
 
-	if (! match_structure(\@testElements, \@readElements)) {
+	if (! compare_structure(\@testElements, \@readElements)) {
 		ok(0);
 		last TEST3;
 	}
@@ -102,7 +98,7 @@ TEST3: # add/remove multiple elements
 	# the queue is now empty
 	push (@readElements, $queue->remove());
 
-	if (! match_structure(\@testElements, \@readElements)) {
+	if (! compare_structure(\@testElements, \@readElements)) {
 		ok(0);
 		last TEST3;
 	}
@@ -110,12 +106,11 @@ TEST3: # add/remove multiple elements
 	# try to remove more nonexistent elements
 	push (@readElements, $queue->remove(5));
 
-	if (! match_structure(\@testElements, \@readElements)) {
+	if (! compare_structure(\@testElements, \@readElements)) {
 		ok(0);
+		last TEST3;
 	}
-	else {
-		ok(1);
-	}
+	ok(1);
 }
 
 
@@ -126,26 +121,23 @@ TEST4: # initializing the queue
 	my @readElements;
 	push (@readElements, $queue->remove($queue->size()));
 
-	if (! match_structure(\@testElements, \@readElements)) {
+	if (! compare_structure(\@testElements, \@readElements)) {
 		ok(0);
+		last TEST4;
 	}
-	else {
-		ok(1);
-	}
+	ok(1);
 }
 
 
-TEST5: # empty the queue
+TEST5: # clear the queue
 {
 	my $queue = new Queue(\@testElements);
 	
-	$queue->empty();
-	
-	if ($queue->size() != 0) {
-		ok(0);
-	}
-	else {
-		ok(1);
-	}
-}
+	$queue->clear();
 
+	if (! $queue->empty()) {
+		ok(0);
+		last TEST5;
+	}
+	ok(1);
+}
