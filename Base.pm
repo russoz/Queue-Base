@@ -1,7 +1,7 @@
 
 package Queue::Base;
 
-$VERSION = "1.01";
+$VERSION = "1.02";
 
 
 ################################################################################
@@ -41,14 +41,6 @@ sub add
 }
 
 
-sub size
-{
-	my $obj = shift();
-	
-	return scalar(@{$obj->{'list'}});
-}
-
-
 sub remove
 {
 	my $obj = shift();
@@ -80,14 +72,19 @@ sub remove
 }
 
 
+sub size
+{
+	my $obj = shift();
+	
+	return scalar(@{$obj->{'list'}});
+}
+
+
 sub empty
 {
 	my $obj = shift();
 	
-	my $size = scalar(@{$obj->{'list'}});
 	$obj->{'list'} = [];
-	
-	return $size;
 }
 
 
@@ -113,7 +110,7 @@ Queue::Base - Simple OO style queue implementation.
  $queue->add($element);
  
  # remove an element from the queue
- if (! $queue->empty()) {
+ if ($queue->size()) {
      my $element = $queue->remove();
  }
  # or
@@ -154,10 +151,6 @@ ELEMENTS is an array reference with elements the queue to be initialized with.
 
 Adds the LIST OF ELEMENTS to the end of the queue.
 
-=item size
-
-Returns the size of the queue.
-
 =item remove [NUMBER_OF_ELEMENTS]
 
 In scalar context it return the first element from the queue.
@@ -165,9 +158,13 @@ In scalar context it return the first element from the queue.
 In scalar context it attempts to return the NUMBER_OF_ELEMENTS requested;
 when NUMBER_OF_ELEMENTS is not given, it defaults to 1.
 
+=item size
+
+Returns the size of the queue.
+
 =item emtpy
 
-Empties the queue, and returns the size of the queue before the empty operation.
+Empties the queue.
 
 =back
 

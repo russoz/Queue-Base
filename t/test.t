@@ -10,7 +10,7 @@ use Queue::Base;
 
 use File::Basename;
 use lib dirname(readlink($0)||$0);
-use TestUtil;
+use TestLib;
 
 use vars qw(@testElements);
 
@@ -138,15 +138,10 @@ TEST4: # initializing the queue
 TEST5: # empty the queue
 {
 	my $queue = new Queue(\@testElements);
-	$queue->remove();
 	
-	# the size before the empty operation
-	my $size = $queue->empty();
+	$queue->empty();
 	
-	if ($size != 2) {
-		ok(0);
-	}	
-	elsif($queue->size() != 0) {
+	if ($queue->size() != 0) {
 		ok(0);
 	}
 	else {

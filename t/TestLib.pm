@@ -1,5 +1,5 @@
 
-package TestUtil;
+package TestLib;
 
 use Exporter;
 @ISA = qw(Exporter);
