@@ -1,103 +1,65 @@
-
 package Queue::Base;
 
-$VERSION = "1.1";
+use strict;
+use warnings;
+use Carp;
 
+our $VERSION = "1.2";
 
-################################################################################
+sub new {
+    my ($class, $elems) = @_;
+    my $self = bless( { list => [] }, $class );
 
-# Public Interface
+    if ( defined $elems && ref($elems) eq 'ARRAY' ) {
+        @{ $self->{list} } = @{$elems};
+    }
 
-################################################################################
-
-
-sub new
-{
-	my $class = shift();
-	my ($rElements) = shift();
-
-	my $obj = {};
-	bless($obj, $class);
-		
-	if (defined $rElements && ref($rElements) eq 'ARRAY') {
-		@{$obj->{'list'}} = @{$rElements};
-	}
-	else {
-		$obj->{'list'} = [];
-	}
-	
-	return $obj;
+    return $self;
 }
 
-
-sub add
-{
-	my $obj = shift();
-	
-	while (my $elem = shift)
-	{ 
-		push(@{$obj->{'list'}}, $elem);
-	}
+sub add {
+    push @{ shift->{list} }, @_;
 }
 
-
-sub remove
-{
-	my $obj = shift();
-	my ($numOfElements) = shift;
-
-	if (wantarray())
-	{ 
-		my @removedElements = ();
-		if (! defined $numOfElements) {
-			$numOfElements = 1;
-		}
-
-		for (my $k = $numOfElements; $k > 0; $k--)
-		{
-			if (my $elem = shift(@{$obj->{'list'}}) ) {
-				push(@removedElements, $elem);
-			}
-			else {
-				last;
-			}
-		}
-
-		return @removedElements;
-	}
-	else {
-		my $elem = shift(@{$obj->{'list'}});
-		return $elem;
-	}
+sub remove_all {
+    my $self = shift;
+    return ( $self->remove( $self->size ) );
 }
 
+sub remove {
+    my $self = shift;
+    my $num = shift || 1;
 
-sub size
-{
-	my $obj = shift();
-	
-	return scalar(@{$obj->{'list'}});
+    return shift @{ $self->{list} } unless wantarray;
+
+    croak 'Paramater must be a positive number' unless 0 < $num;
+
+    my @removed = ();
+
+    my $count = $num;
+    while( $count ) {
+        my $elem = shift @{ $self->{list} };
+        last unless defined $elem;
+        push @removed, $elem;
+        $count--;
+    }
+
+    return @removed;
 }
 
-
-sub empty
-{
-	my $obj = shift();
-	
-	return ($obj->size() == 0);
+sub size {
+    return scalar( @{ shift->{list} } );
 }
 
-
-sub clear
-{
-	my $obj = shift();
-	
-	$obj->{'list'} = [];
+sub empty {
+    return shift->size == 0;
 }
 
+sub clear {
+    shift->{list} = [];
+}
 
 1;
-
 
 __END__
 
@@ -118,11 +80,11 @@ Queue::Base - Simple OO style queue implementation.
  $queue->add($element);
  
  # remove the next element from the queue
- if (! $queue->empty()) {
-     my $element = $queue->remove();
+ if (! $queue->empty) {
+     my $element = $queue->remove;
  }
  # or
- $element = $queue->remove();
+ $element = $queue->remove;
  if (defined $element) {
      # do some processing here
  }

@@ -1,4 +1,4 @@
-Base.pm
+lib/Queue/Base.pm
 ChangeLog
 INSTALL
 MANIFEST			This list of files
