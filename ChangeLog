@@ -1,4 +1,7 @@
 
+2011-02-09 (v1.2) - Alexei Znamensky
+    * Re-organizing the module, added method remove_all
+
 2003-05-26 (v1.1) - Farkas Arpad
 	* Interface: now clear() does what before empty() did. empty() is used to
 		test whether the queue is empty, its size is zero.

@@ -1,0 +1,9 @@
+TODO List
+=========
+
+* Move to Module::Install
+  * Add dependencies (few, but nonetheless)
+  * Use Dist::Zilla for building
+* Improve tests
+* Improve documentation
+

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = "1.2";
+use version; our $VERSION = qv("1.2");
 
 sub new {
     my ($class, $elems) = @_;
@@ -69,30 +69,30 @@ Queue::Base - Simple OO style queue implementation.
 
 =head1 SYNOPSIS
 
- use Queue::Base;
+    use Queue::Base;
 
- # construction
- my $queue = new Queue::Base;
- # or
- my $queue = new Queue::Base(\@elements);
+    # construction
+    my $queue = new Queue::Base;
+    # or
+    my $queue = new Queue::Base(\@elements);
  
- # add a new element to the queue
- $queue->add($element);
+    # add a new element to the queue
+    $queue->add($element);
  
- # remove the next element from the queue
- if (! $queue->empty) {
-     my $element = $queue->remove;
- }
- # or
- $element = $queue->remove;
- if (defined $element) {
-     # do some processing here
- }
+    # remove the next element from the queue
+    if (! $queue->empty) {
+        my $element = $queue->remove;
+    }
+    # or
+    $element = $queue->remove;
+    if (defined $element) {
+        # do some processing here
+    }
  
- # add/remove more than just one element
- $queue->add($elem1, $elem2 ...)
- # and
- @elements = $queue->remove(5);
+    # add/remove more than just one element
+    $queue->add($elem1, $elem2 ...)
+    # and
+    @elements = $queue->remove(5);
 
 =head1 DESCRIPTION
 
@@ -128,6 +128,10 @@ In scalar context it returns the first element from the queue.
 In array context it attempts to return NUMBER_OF_ELEMENTS requested;
 when NUMBER_OF_ELEMENTS is not given, it defaults to 1.
 
+=item remove_all
+
+Return an array with all the elements in the queue, and clears the queue.
+
 =item size
 
 Returns the size of the queue.
@@ -150,6 +154,9 @@ which in perl5 are basically scalars.
 
 =head1 AUTHOR
 
-Farkas Arpad <arpadf@spidernet.co.ro>
+Alexei Znamensky << <russoz@cpan.org> >>
+
+Farkas Arpad << <arpadf@spidernet.co.ro> >>
 
 =cut
+
