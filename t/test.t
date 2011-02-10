@@ -1,140 +1,77 @@
-#!/usr/bin/perl -w
 
 use strict;
-use Test;
-BEGIN { plan tests => 5 }
+use warnings;
 
-use File::Basename;
-use Queue::Base;
-@Queue::ISA = qw(Queue::Base);
+use Test::More tests => 13;
 
-use lib dirname( readlink($0) || $0 );
-use TestLib;
-
-use vars qw(@testElements);
+BEGIN { use_ok( 'Queue::Base' ) };
 
 ################################################################################
 
-@testElements = qw(one two three);
+our @testElements = qw(one two three);
 
-TEST1:    # simple add/remove (queue size)
-{
-    my $queue = new Queue;
-    if ( $queue->size() != 0 ) {
-        ok(0);
-        last TEST1;
-    }
+# simple add/remove (queue size)
+my $q = new Queue::Base;
+ok( $q->size() == 0 );
 
-    $queue->add('one');
-    $queue->add('two');
-    $queue->remove();
-    $queue->add('three');
+$q->add('one');
+$q->add('two');
+$q->remove();
+$q->add('three');
+ok( $q->size() == 2 );
 
-    if ( $queue->size() != 2 ) {
-        ok(0);
-        last TEST1;
-    }
+$q->remove();
+$q->remove();
+ok( $q->empty() );
+ok( ! defined( $q->remove() ) );
 
-    $queue->remove();
-    $queue->remove();
-    $queue->remove();
+# simple add/remove (content)
+my $q2 = new Queue::Base;
 
-    if ( !$queue->empty() ) {
-        ok(0);
-        last TEST1;
-    }
-    ok(1);
-}
+$q2->add('one');
+$q2->add('two');
+$q2->add('three');
 
-TEST2:    # simple add/remove (content)
-{
-    my $queue = new Queue;
+my @read2;
+my $element = $q2->remove();
+push( @read2, $element );
+$element = $q2->remove();
+push( @read2, $element );
+$element = $q2->remove();
+push( @read2, $element );
 
-    $queue->add('one');
-    $queue->add('two');
-    $queue->add('three');
+is_deeply( [@testElements], [@read2] );
 
-    my @readElements;
-    my $element = $queue->remove();
-    push( @readElements, $element );
-    $element = $queue->remove();
-    push( @readElements, $element );
-    $element = $queue->remove();
-    push( @readElements, $element );
+ok( ! defined( $q2->remove() ) );
 
-    if ( !compare_structure( \@testElements, \@readElements ) ) {
-        ok(0);
-        last TEST2;
-    }
+# add/remove multiple elements
+my $q3 = new Queue::Base;
+$q3->add( 'one', 'two' );
+$q3->add('three');
 
-    # should not add element - remove() returns undef
-    if ( my $element = $queue->remove() ) {
-        push( @readElements, $element );
-    }
+my @read3;
+push( @read3, $q3->remove(2) );
+push( @read3, $q3->remove() );
 
-    if ( !compare_structure( \@testElements, \@readElements ) ) {
-        ok(0);
-        last TEST2;
-    }
-    ok(1);
-}
+is_deeply( [@testElements], [@read3] );
 
-TEST3:    # add/remove multiple elements
-{
-    my $queue = new Queue;
-    $queue->add( 'one', 'two' );
-    $queue->add('three');
+# the queue is now empty
+ok( ! defined( $q3->remove() ) );
 
-    my @readElements;
-    push( @readElements, $queue->remove(2) );
-    push( @readElements, $queue->remove() );
+# try to remove more nonexistent elements
+push( @read3, $q3->remove(5) );
 
-    if ( !compare_structure( \@testElements, \@readElements ) ) {
-        ok(0);
-        last TEST3;
-    }
+is_deeply( [@testElements], [@read3] );
 
-    # the queue is now empty
-    push( @readElements, $queue->remove() );
+# initializing the queue
+my $q4 = new Queue::Base( [ @testElements ] );
+is_deeply( [@testElements], [$q4->remove( $q4->size() )] );
 
-    if ( !compare_structure( \@testElements, \@readElements ) ) {
-        ok(0);
-        last TEST3;
-    }
+my $q4a = new Queue::Base( [ @testElements ] );
+is_deeply( [@testElements], [$q4a->remove_all()] );
 
-    # try to remove more nonexistent elements
-    push( @readElements, $queue->remove(5) );
+# clear the queue
+my $q5 = new Queue::Base( [@testElements] );
+$q5->clear();
 
-    if ( !compare_structure( \@testElements, \@readElements ) ) {
-        ok(0);
-        last TEST3;
-    }
-    ok(1);
-}
-
-TEST4:    # initializing the queue
-{
-    my $queue = new Queue( \@testElements );
-
-    my @readElements;
-    push( @readElements, $queue->remove( $queue->size() ) );
-
-    if ( !compare_structure( \@testElements, \@readElements ) ) {
-        ok(0);
-        last TEST4;
-    }
-    ok(1);
-}
-
-TEST5:    # clear the queue
-{
-    my $queue = new Queue( \@testElements );
-
-    $queue->clear();
-
-    if ( !$queue->empty() ) {
-        ok(0);
-        last TEST5;
-    }
-    ok(1);
-}
+ok( $q5->empty() );
