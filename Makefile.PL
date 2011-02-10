@@ -1,7 +1,15 @@
+use inc::Module::Install;
 
-use ExtUtils::MakeMaker;
+name     'Queue-Base';
+all_from 'lib/Queue/Base.pm';
+author   q{Alexei Znamensky <russoz@cpan.org>};
+license  'perl';
 
-WriteMakefile(
-	NAME			=> "Queue::Base",
-	VERSION_FROM	=> "lib/Queue/Base.pm"
-);
+requires 'version' => 0.77;
+
+build_requires 'Test::More';
+
+auto_install;
+
+WriteAll;
+

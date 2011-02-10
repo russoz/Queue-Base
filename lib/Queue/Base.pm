@@ -4,10 +4,10 @@ use strict;
 use warnings;
 use Carp;
 
-use version; our $VERSION = qv("1.2");
+use version; our $VERSION = qv("1.1.90");
 
 sub new {
-    my ($class, $elems) = @_;
+    my ( $class, $elems ) = @_;
     my $self = bless( { list => [] }, $class );
 
     if ( defined $elems && ref($elems) eq 'ARRAY' ) {
@@ -37,7 +37,7 @@ sub remove {
     my @removed = ();
 
     my $count = $num;
-    while( $count ) {
+    while ($count) {
         my $elem = shift @{ $self->{list} };
         last unless defined $elem;
         push @removed, $elem;
