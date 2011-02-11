@@ -154,9 +154,7 @@ which in perl5 are basically scalars.
 
 =head1 AUTHOR
 
-Alexei Znamensky << <russoz@cpan.org> >>
-
-Farkas Arpad << <arpadf@spidernet.co.ro> >>
+Farkas Arpad, maintained by Alexei "RUSSOZ" Znamensky << <russoz@cpan.org> >>
 
 =cut
 
