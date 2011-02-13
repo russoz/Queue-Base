@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-use version; our $VERSION = qv("1.1_91");
+use version; our $VERSION = '1.2';
 
 sub new {
     my ( $class, $elems ) = @_;
@@ -83,6 +83,7 @@ Queue::Base - Simple OO style queue implementation.
     if (! $queue->empty) {
         my $element = $queue->remove;
     }
+
     # or
     $element = $queue->remove;
     if (defined $element) {
