@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-use version; our $VERSION = '1.2';
+use version; our $VERSION = '2.0';
 
 sub new {
     my ( $class, $elems ) = @_;
