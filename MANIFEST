@@ -1,5 +1,3 @@
-Build.PL
-ChangeLog
 Changes
 ignore.txt
 inc/Module/AutoInstall.pm
@@ -16,22 +14,11 @@ inc/Module/Install/WriteAll.pm
 INSTALL
 lib/Queue/Base.pm
 Makefile.PL
-MANIFEST
-META.yml
-Queue-Base-v1.2/Build.PL
-Queue-Base-v1.2/Changes
-Queue-Base-v1.2/lib/Queue/Base.pm
-Queue-Base-v1.2/Makefile.PL
-Queue-Base-v1.2/MANIFEST
-Queue-Base-v1.2/README
-Queue-Base-v1.2/t/00.load.t
-Queue-Base-v1.2/t/perlcritic.t
-Queue-Base-v1.2/t/pod-coverage.t
-Queue-Base-v1.2/t/pod.t
+MANIFEST			This list of files
 README
 t/00.load.t
+t/01.queue.t
 t/perlcritic.t
 t/pod-coverage.t
 t/pod.t
-t/test.t
 TODO
