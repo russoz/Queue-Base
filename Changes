@@ -1,4 +1,6 @@
 
+{{$NEXT}}
+
 2011-02-09 (v1.1_90) - Alexei Znamensky
     * Re-organizing the module, added method remove_all
     * Rewrote the test file with Test::More

@@ -1,10 +1,9 @@
-package Queue::Base;
 
+package Queue::Base;
 use strict;
 use warnings;
-use Carp;
 
-use version; our $VERSION = '2.0.1';
+use Carp;
 
 sub new {
     my ( $class, $elems ) = @_;
@@ -19,6 +18,7 @@ sub new {
 
 sub add {
     push @{ shift->{list} }, @_;
+	return;
 }
 
 sub remove_all {
@@ -57,6 +57,7 @@ sub empty {
 
 sub clear {
     shift->{list} = [];
+	return;
 }
 
 1;
@@ -131,7 +132,7 @@ when NUMBER_OF_ELEMENTS is not given, it defaults to 1.
 
 =item remove_all
 
-Return an array with all the elements in the queue, and clears the queue.
+Returns an array with all the elements in the queue, and clears the queue.
 
 =item size
 
@@ -155,7 +156,7 @@ which in perl5 are basically scalars.
 
 =head1 AUTHOR
 
-Farkas Arpad, maintained by Alexei "RUSSOZ" Znamensky << <russoz@cpan.org> >>
+Farkas Arpad, maintained by Alexei "RUSSOZ" Znamensky C<< <russoz@cpan.org> >>
 
 =cut
 
