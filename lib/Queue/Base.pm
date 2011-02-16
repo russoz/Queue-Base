@@ -18,7 +18,7 @@ sub new {
 
 sub add {
     push @{ shift->{list} }, @_;
-	return;
+    return;
 }
 
 sub remove_all {
@@ -57,7 +57,7 @@ sub empty {
 
 sub clear {
     shift->{list} = [];
-	return;
+    return;
 }
 
 1;
@@ -76,10 +76,10 @@ Queue::Base - Simple OO style queue implementation.
     my $queue = new Queue::Base;
     # or
     my $queue = new Queue::Base(\@elements);
- 
+
     # add a new element to the queue
     $queue->add($element);
- 
+
     # remove the next element from the queue
     if (! $queue->empty) {
         my $element = $queue->remove;
@@ -90,7 +90,7 @@ Queue::Base - Simple OO style queue implementation.
     if (defined $element) {
         # do some processing here
     }
- 
+
     # add/remove more than just one element
     $queue->add($elem1, $elem2 ...)
     # and
@@ -98,7 +98,7 @@ Queue::Base - Simple OO style queue implementation.
 
 =head1 DESCRIPTION
 
-The Queue::Base is a simple implementation for queue structures using an 
+The Queue::Base is a simple implementation for queue structures using an
 OO interface. Provides basic functionality: nothing less - nothing more.
 
 =head1 METHODS
@@ -150,13 +150,13 @@ Removes all elements from the queue.
 
 =head1 CAVEATS
 
-The module works only with scalar values. If you want to use more complex 
-structures (and there's a big change you want that) please use references, 
+The module works only with scalar values. If you want to use more complex
+structures (and there's a big change you want that) please use references,
 which in perl5 are basically scalars.
 
 =head1 AUTHOR
 
-Farkas Arpad, maintained by Alexei "RUSSOZ" Znamensky C<< <russoz@cpan.org> >>
+Farkas Arpad, maintained by Alexei Znamensky C<< <russoz@cpan.org> >>
 
 =cut
 
