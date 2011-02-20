@@ -1,9 +1,11 @@
-
 package Queue::Base;
+
 use strict;
 use warnings;
 
 use Carp;
+
+# VERSION
 
 sub new {
     my ( $class, $elems ) = @_;
@@ -17,7 +19,8 @@ sub new {
 }
 
 sub add {
-    push @{ shift->{list} }, @_;
+	my ($self,@args) = @_;
+    push @{ $self->{list} }, @args;
     return;
 }
 
