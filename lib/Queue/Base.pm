@@ -1,4 +1,5 @@
 package Queue::Base;
+# ABSTRACT: Simple OO style queue implementation.
 
 use strict;
 use warnings;
@@ -156,10 +157,6 @@ Removes all elements from the queue.
 The module works only with scalar values. If you want to use more complex
 structures (and there's a big change you want that) please use references,
 which in perl5 are basically scalars.
-
-=head1 AUTHOR
-
-Farkas Arpad, maintained by Alexei Znamensky C<< <russoz@cpan.org> >>
 
 =cut
 
