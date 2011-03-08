@@ -1,12 +1,14 @@
 package Queue::Base;
-# ABSTRACT: Simple OO style queue implementation.
 
 use strict;
 use warnings;
 
-use Carp;
+# ABSTRACT: Simple OO style queue implementation.
+# ENCODING: utf8
 
 # VERSION
+
+use Carp;
 
 sub new {
     my ( $class, $elems ) = @_;
@@ -20,7 +22,7 @@ sub new {
 }
 
 sub add {
-	my ($self,@args) = @_;
+    my ( $self, @args ) = @_;
     push @{ $self->{list} }, @args;
     return;
 }
@@ -67,10 +69,6 @@ sub clear {
 1;
 
 __END__
-
-=head1 NAME
-
-Queue::Base - Simple OO style queue implementation.
 
 =head1 SYNOPSIS
 
