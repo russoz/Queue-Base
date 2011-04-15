@@ -4,7 +4,6 @@ use strict;
 use warnings;
 
 # ABSTRACT: Simple OO style queue implementation.
-# ENCODING: utf8
 
 # VERSION
 
