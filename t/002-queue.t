@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 13;
+use Test::More tests => 14;
 
 BEGIN { use_ok('Queue::Base') }
 
@@ -11,7 +11,7 @@ BEGIN { use_ok('Queue::Base') }
 our @testElements = qw(one two three);
 
 # simple add/remove (queue size)
-my $q = new Queue::Base;
+my $q = new_ok('Queue::Base');
 ok( $q->size() == 0 );
 
 $q->add('one');

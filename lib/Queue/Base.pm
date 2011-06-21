@@ -65,6 +65,11 @@ sub clear {
     return;
 }
 
+sub copy_elem {
+    my @elems = @{ shift->{list} };
+    return @elems;
+}
+
 1;
 
 __END__
@@ -146,6 +151,10 @@ Returns whether the queue is empty, which means its size is 0.
 =item clear
 
 Removes all elements from the queue.
+
+=item copy_elem
+
+Returns a copy (shallow) of the underlying array with the queue elements.
 
 =back
 
