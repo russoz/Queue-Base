@@ -70,6 +70,11 @@ sub copy_elem {
     return @elems;
 }
 
+sub peek {
+    my $self = shift;
+    return $self->{list}->[0];
+}
+
 1;
 
 __END__
@@ -107,56 +112,46 @@ __END__
 The Queue::Base is a simple implementation for queue structures using an
 OO interface. Provides basic functionality: nothing less - nothing more.
 
-=head1 METHODS
-
-=head2 Constructor
-
-=over
-
-=item new [ELEMENTS]
+=method new [ELEMENTS]
 
 Creates a new empty queue.
 
 ELEMENTS is an array reference with elements the queue to be initialized with.
 
-=back
-
-=head2 Methods
-
-=over
-
-=item add [LIST_OF_ELEMENTS]
+=method add [LIST_OF_ELEMENTS]
 
 Adds the LIST OF ELEMENTS to the end of the queue.
 
-=item remove [NUMBER_OF_ELEMENTS]
+=method remove [NUMBER_OF_ELEMENTS]
 
 In scalar context it returns the first element from the queue.
 
 In array context it attempts to return NUMBER_OF_ELEMENTS requested;
 when NUMBER_OF_ELEMENTS is not given, it defaults to 1.
 
-=item remove_all
+=method remove_all
 
 Returns an array with all the elements in the queue, and clears the queue.
 
-=item size
+=method size
 
 Returns the size of the queue.
 
-=item empty
+=method empty
 
 Returns whether the queue is empty, which means its size is 0.
 
-=item clear
+=method clear
 
 Removes all elements from the queue.
 
-=item copy_elem
+=method copy_elem
 
 Returns a copy (shallow) of the underlying array with the queue elements.
 
-=back
+=method peek
+
+Returns the value of the first element of the queue, wihtout removing it.
 
 =head1 CAVEATS
 
